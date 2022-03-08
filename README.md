@@ -10,4 +10,6 @@
   https://fedingo.com/how-to-setup-apache-virtual-host-in-windows/ (Windows)
   
  ## Run in the browser check your ServerName
-  http://<ServerName>
+
+![image](https://user-images.githubusercontent.com/5249958/157182772-7f531699-bb9a-48f4-a176-17c51f757e39.png)
+
