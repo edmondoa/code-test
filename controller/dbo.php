@@ -13,7 +13,7 @@ class DBProcess {
      * @param id task id
      * @param data['sortBy'] hold the field for sorting 
      * @param data['showBy'] hold the field for viewing 
-     * @return List tasks 
+     * @return Array result 
      */
     public function getTask($id = null,$data){
         $bind = [];
@@ -30,8 +30,12 @@ class DBProcess {
         }
         $stmt = $this->db->prepare('SELECT * FROM tasks '.$addon. " ".$orderBy);
         $stmt->execute($bind);
-            $tasks = [];
-            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $tasks = [];
+        $completed = 0;
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            if( $row['status'] == 'Complete'){
+                $completed++;
+            }
             $tasks[] = [
                 'task_name' => $row['task_name'],
                 'description' => $row['description'],
@@ -41,7 +45,8 @@ class DBProcess {
                 'created' => $row['start_date'],
             ];
         }
-        return $tasks;
+        $result = ['tasks'=>$tasks, 'completed'=> $completed ,'total'=> count($tasks)];
+        return $result;
     }
 
     /**
@@ -110,6 +115,10 @@ class DBProcess {
         $stmt->execute([
             ':task_id' => $id
         ]);
+    }
+
+    public function count(){
+
     }
 
     

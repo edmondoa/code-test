@@ -1,9 +1,8 @@
 
 $( document ).ready(function() {
-    
+  
     getList();
-
-   
+  
     $("body").delegate(".btn-add-task",'click',function(event){
       event.preventDefault();
       data = {'taskName':$("[name=name]").val(),'priority':$("[name=priority]").val(),'taskDescription':$("[name=description]").val(),'action':'addTask' };
@@ -56,9 +55,12 @@ var getList = function(){
       url: "controller/proccesor.php",
       type: "POST",
       data: data,
+      dataType: 'json',
       context: document.body
     }).done(function(result) {
-      $( "#list-table" ).html( result );
+      $( "#list-table" ).html( result.tasks );
+      $("#total-completed").html( result.completed);
+      $("#total").html( result.total);
     });
 
 }
@@ -88,6 +90,7 @@ var getView = function(){
       $("#update-description").val(result[0].description);
     });
 }
+
 
 // clear form values
 var clearForm = function(){

@@ -8,7 +8,8 @@ $action = $_POST['action'];
 switch($action){
     case 'displayList':
         $datas = $db->getTask(null,$_POST);
-        echo  buildView($datas);
+        $view = buildView($datas['tasks']);
+        echo  json_encode(['tasks'=>$view,'total'=>$datas['total'],'completed' => $datas['completed']]);
         break;
     case 'addTask':
         $db->insertTask($_POST);
@@ -67,7 +68,7 @@ function priorityMapping($priorityCode){
  */
 function actions($id){
     $btns = "";
-    $btns .= "<a href='#' class='btn btn-sm btn-primary btn-view' data-id='".$id."' data-bs-toggle='modal' data-bs-target='#viewModal'>View</a>";
+    $btns .= "<a href='#' class='btn btn-sm btn-primary btn-view' data-id='".$id."' data-bs-toggle='modal' data-bs-target='#viewModal'>Edit</a>";
     $btns .= "<a href='#' class='btn btn-sm btn-danger btn-delete'  data-id='".$id."' >Delete</a>";
     $btns .= "<a href='#' class='btn btn-sm btn-success btn-complete' data-id='".$id."' >Complete</a>";
     return $btns;

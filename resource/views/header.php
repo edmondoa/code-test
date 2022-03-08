@@ -15,8 +15,13 @@
         </button>
         </li>
        
-       
       </ul>
+      <div class="col-3">
+        Complete <span class="badge bg-secondary bg-success" id='total-completed'>4</span>
+      </div>
+      <div class="col-3">
+        Total <span class="badge bg-secondary bg-primary" id='total'>4</span>
+      </div>
       <form class="d-flex">
       <div class="input-group mb-2">
           <span class="input-group-text" >Show By</span>
